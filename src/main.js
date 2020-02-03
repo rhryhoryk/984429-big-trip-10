@@ -1,8 +1,9 @@
 import {createEditForm} from './components/edit-form.js';
-import {createEvent} from './components/event.js';
-import {createFilters} from './components/filters.js';
+import {generateEventTemplate} from './components/event.js';
+import {createFiltersTemplate} from './components/filters.js';
 import {createMainMenu} from './components/main-menu.js';
 import {createMainTripInfo} from './components/trip-info.js';
+import {generateEvents} from './mock/event-mock.js';
 
 const render = (element, html, place = `beforeend`) => {
   element.insertAdjacentHTML(place, html);
@@ -14,11 +15,11 @@ render(tripInfo, createMainTripInfo(), `afterbegin`);
 
 const tripControl = document.querySelector(`.trip-controls`);
 render(tripControl, createMainMenu());
-render(tripControl, createFilters());
+render(tripControl, createFiltersTemplate());
 
 const tripEventsSection = document.querySelector(`.trip-events`);
 render(tripEventsSection, createEditForm());
 
-for (let i = 1; i < 4; i++) {
-  render(tripEventsSection, createEvent());
-}
+const events = generateEvents(5);
+render(tripEventsSection, generateEventTemplate(events[0]));
+events.slice(1).forEach((event) => render(tripEventsSection, generateEventTemplate(event)));
