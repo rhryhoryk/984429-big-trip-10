@@ -1,4 +1,6 @@
-export const createEditForm = () => {
+import * as util from './util.js';
+
+const createEditForm = () => {
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
       <header class="event__header">
@@ -177,3 +179,24 @@ export const createEditForm = () => {
     </form>`
   );
 };
+
+export default class EditFormComponent {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEditForm();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = util.createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

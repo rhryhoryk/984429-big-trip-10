@@ -1,4 +1,6 @@
-const generateAdditionTemplate = (array) => {
+import * as util from './util.js';
+
+const createAdditionTemplate = (array) => {
   return array.map((arrElement) => {
     return (
       `<li class="event__offer">
@@ -10,8 +12,8 @@ const generateAdditionTemplate = (array) => {
   }).join(`\n`);
 };
 
-export const generateEventTemplate = (event) => {
-  const additions = generateAdditionTemplate(Array.from(event.addition));
+const createEventTemplate = (event) => {
+  const additions = createAdditionTemplate(Array.from(event.addition));
   return (
     `<ul class="trip-days">
       <li class="trip-days__item  day">
@@ -56,3 +58,25 @@ export const generateEventTemplate = (event) => {
     </ul>`
   );
 };
+
+export default class EventComponent {
+  constructor(event) {
+    this._event = event;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = util.createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
