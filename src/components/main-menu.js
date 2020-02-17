@@ -1,4 +1,3 @@
-// import {menuPoints} from '../mock/main-menu-mock.js';
 import * as util from './util.js';
 
 const createMenuPoint = (array) => {
