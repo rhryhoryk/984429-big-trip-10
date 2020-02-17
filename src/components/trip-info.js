@@ -1,4 +1,6 @@
-export const createMainTripInfo = () => {
+import * as util from './util.js';
+
+const createMainTripInfo = () => {
   return (
     `<div class="trip-info__main">
       <h1 class="trip-info__title">Amsterdam &mdash; ... &mdash; Amsterdam</h1>
@@ -7,3 +9,25 @@ export const createMainTripInfo = () => {
     </div>`
   );
 };
+
+
+export default class TripInfoComponent {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createMainTripInfo();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = util.createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

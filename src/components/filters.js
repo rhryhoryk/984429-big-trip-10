@@ -1,6 +1,7 @@
-import {filtersName} from '../mock/util.js';
+import * as util from './util.js';
 
-const generateFilters = (array) => {
+
+const createFilterspoint = (array) => {
   return array.map((filter) => {
     return (
       `<div class="trip-filters__filter">
@@ -11,9 +12,9 @@ const generateFilters = (array) => {
   }).join(`\n`);
 };
 
-const filters = generateFilters(filtersName);
 
-export const createFiltersTemplate = () => {
+const createFiltersTemplate = (array) => {
+  const filters = createFilterspoint(array);
   return (
     `<form class="trip-filters" action="#" method="get">
       ${filters}
@@ -21,3 +22,25 @@ export const createFiltersTemplate = () => {
     </form>`
   );
 };
+
+export default class FilterComponent {
+  constructor(filters) {
+    this._filters = filters;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFiltersTemplate(this._filters);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = util.createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
