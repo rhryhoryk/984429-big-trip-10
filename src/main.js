@@ -17,22 +17,35 @@ const renderEvent = (event) => {
   const eventComponent = new EventComponent(event);
   const eventEditFormComponent = new EventEditFormComponent();
 
+  const onEscKeyDown = (evt) => {
+    const isEcsDown = evt.key === `Ecs` || evt.key === `Escape`;
+
+    if (isEcsDown) {
+      replaceEditToEvent();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
   const eventRollupBtn = eventComponent.getElement().querySelector(`.event__rollup-btn`);
+  const replaceEventToEdit = () => {
+    tripEventsSection.replaceChild(eventEditFormComponent.getElement(), eventComponent.getElement());
+  };
 
   eventRollupBtn.addEventListener(`click`, () => {
-    tripEventsSection.replaceChild(eventEditFormComponent.getElement(), eventComponent.getElement());
-
+    replaceEventToEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
   });
 
   const eventForm = eventEditFormComponent.getElement().querySelector(`.event__save-btn`);
+  const replaceEditToEvent = () => {
+    tripEventsSection.replaceChild(eventComponent.getElement(), eventEditFormComponent.getElement());
+  };
 
   eventForm.addEventListener(`click`, () => {
-    tripEventsSection.replaceChild(eventComponent.getElement(), eventEditFormComponent.getElement());
-
+    replaceEditToEvent();
   });
 
   render(tripEventsSection, eventComponent.getElement());
-
 };
 
 const tripInfo = document.querySelector(`.trip-info`);
