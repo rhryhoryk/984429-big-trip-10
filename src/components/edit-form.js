@@ -185,4 +185,8 @@ export default class EditFormComponent extends AbstractComponent {
   getTemplate() {
     return createEditForm();
   }
+
+  setSubmitEditFormHandler(handler) {
+    this.getElement().querySelector(`.event__save-btn`).addEventListener(`click`, handler);
+  }
 }

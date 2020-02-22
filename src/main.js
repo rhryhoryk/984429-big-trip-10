@@ -19,29 +19,25 @@ const renderEvent = (event) => {
 
   const onEscKeyDown = (evt) => {
     const isEcsDown = evt.key === `Ecs` || evt.key === `Escape`;
-
     if (isEcsDown) {
       replaceEditToEvent();
       document.removeEventListener(`keydown`, onEscKeyDown);
     }
   };
 
-  const eventRollupBtn = eventComponent.getElement().querySelector(`.event__rollup-btn`);
   const replaceEventToEdit = () => {
     tripEventsSection.replaceChild(eventEditFormComponent.getElement(), eventComponent.getElement());
   };
-
-  eventRollupBtn.addEventListener(`click`, () => {
-    replaceEventToEdit();
-    document.addEventListener(`keydown`, onEscKeyDown);
-  });
-
-  const eventForm = eventEditFormComponent.getElement().querySelector(`.event__save-btn`);
   const replaceEditToEvent = () => {
     tripEventsSection.replaceChild(eventComponent.getElement(), eventEditFormComponent.getElement());
   };
 
-  eventForm.addEventListener(`click`, () => {
+  eventComponent.setEventRollupClickHandler(() => {
+    replaceEventToEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
+  });
+
+  eventEditFormComponent.setSubmitEditFormHandler(() => {
     replaceEditToEvent();
   });
 
