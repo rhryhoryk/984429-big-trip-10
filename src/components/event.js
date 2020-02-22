@@ -1,4 +1,4 @@
-import * as util from './util.js';
+import AbstractComponent from './abstract-component.js';
 
 const createAdditionTemplate = (array) => {
   return array.map((arrElement) => {
@@ -59,24 +59,13 @@ const createEventTemplate = (event) => {
   );
 };
 
-export default class EventComponent {
+export default class EventComponent extends AbstractComponent {
   constructor(event) {
+    super();
     this._event = event;
-    this._element = null;
   }
 
   getTemplate() {
     return createEventTemplate(this._event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = util.createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

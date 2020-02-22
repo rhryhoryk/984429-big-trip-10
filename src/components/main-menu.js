@@ -1,4 +1,4 @@
-import * as util from './util.js';
+import AbstractComponent from './abstract-component.js';
 
 const createMenuPoint = (array) => {
   return array.map((point) => {
@@ -17,24 +17,13 @@ const createMainMenu = (array) => {
   );
 };
 
-export default class MainMenuComponent {
+export default class MainMenuComponent extends AbstractComponent {
   constructor(menuPoints) {
+    super();
     this._menuPoints = menuPoints;
-    this._element = null;
   }
 
   getTemplate() {
     return createMainMenu(this._menuPoints);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = util.createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
