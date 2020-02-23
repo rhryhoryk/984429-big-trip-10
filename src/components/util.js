@@ -22,3 +22,7 @@ export const createElement = (template) => {
   element.innerHTML = template;
   return element.firstChild;
 };
+
+export const render = (parent, element) => {
+  parent.append(element);
+};
