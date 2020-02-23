@@ -1,4 +1,4 @@
-import * as util from './util.js';
+import AbstractComponent from './abstract-component.js';
 
 const createMainTripInfo = () => {
   return (
@@ -10,24 +10,8 @@ const createMainTripInfo = () => {
   );
 };
 
-
-export default class TripInfoComponent {
-  constructor() {
-    this._element = null;
-  }
-
+export default class TripInfoComponent extends AbstractComponent {
   getTemplate() {
     return createMainTripInfo();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = util.createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

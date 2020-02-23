@@ -1,4 +1,4 @@
-import * as util from './util.js';
+import AbstractComponent from './abstract-component.js';
 
 const createEditForm = () => {
   return (
@@ -180,23 +180,13 @@ const createEditForm = () => {
   );
 };
 
-export default class EditFormComponent {
-  constructor() {
-    this._element = null;
-  }
 
+export default class EditFormComponent extends AbstractComponent {
   getTemplate() {
     return createEditForm();
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = util.createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setSubmitEditFormHandler(handler) {
+    this.getElement().querySelector(`.event__save-btn`).addEventListener(`click`, handler);
   }
 }
