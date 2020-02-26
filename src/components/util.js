@@ -1,11 +1,9 @@
 export const generateRandomNumber = (min, max) => {
   return min + Math.floor(Math.random() * max);
-  // return number;
 };
 
 export const getRandomItem = (arr) => {
   return arr[generateRandomNumber(0, arr.length)];
-  // return item;
 };
 
 export const createSet = (array) => {
@@ -14,7 +12,6 @@ export const createSet = (array) => {
 
 export const generateRandomDate = () => {
   return new Date();
-  // return date;
 };
 
 export const createElement = (template) => {
