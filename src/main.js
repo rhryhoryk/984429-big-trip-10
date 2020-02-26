@@ -12,7 +12,7 @@ import FilterComponent from './components/filters.js';
 import TripController from './controllers/trip-controller.js';
 
 const tripInfo = document.querySelector(`.trip-main`);
-render(tripInfo, new TripInfo().getElement());
+render(tripInfo, new TripInfo().getElement(), `afterbegin`);
 
 const tripControl = document.querySelector(`.trip-controls`);
 render(tripControl, new MainMenuComponent(menuPoints).getElement());

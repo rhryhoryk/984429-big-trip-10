@@ -20,6 +20,13 @@ export const createElement = (template) => {
   return element.firstChild;
 };
 
-export const render = (parent, element) => {
-  parent.append(element);
+export const render = (parent, element, place = `beforeend`) => {
+  switch (place) {
+    case `afterbegin`:
+      parent.prepend(element);
+      break;
+    case `beforeend`:
+      parent.append(element);
+      break;
+  }
 };
