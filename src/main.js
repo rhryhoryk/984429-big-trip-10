@@ -5,6 +5,7 @@ import {menuPoints} from './mock/main-menu-mock.js';
 import {render} from './components/util.js';
 
 import Board from './components/board.js';
+import Sort from './components/sort.js';
 import TripInfoComponent from './components/trip-info.js';
 import MainMenuComponent from './components/main-menu.js';
 import FilterComponent from './components/filters.js';
@@ -19,7 +20,8 @@ render(tripControl, new FilterComponent(filterNames).getElement());
 
 const bodyContainer = document.querySelector(`.page-body__page-main .page-body__container`);
 render(bodyContainer, new Board().getElement());
-const tripEventsSection = document.querySelector(`.trip-events`);
 
+const tripEventsSection = document.querySelector(`.trip-events`);
+render(tripEventsSection, new Sort().getElement());
 const events = setEvents(5);
 events.forEach((event) => new TripController(event, tripEventsSection).render());
