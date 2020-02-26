@@ -7,6 +7,7 @@ import {render} from './components/util.js';
 import Board from './components/board.js';
 import Sort from './components/sort.js';
 import TripInfo from './components/trip-info.js';
+// import NoPoint from './components/no-points.js';
 import MainMenuComponent from './components/main-menu.js';
 import FilterComponent from './components/filters.js';
 import TripController from './controllers/trip-controller.js';
