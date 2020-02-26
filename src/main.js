@@ -6,13 +6,13 @@ import {render} from './components/util.js';
 
 import Board from './components/board.js';
 import Sort from './components/sort.js';
-import TripInfoComponent from './components/trip-info.js';
+import TripInfo from './components/trip-info.js';
 import MainMenuComponent from './components/main-menu.js';
 import FilterComponent from './components/filters.js';
 import TripController from './controllers/trip-controller.js';
 
-const tripInfo = document.querySelector(`.trip-info`);
-render(tripInfo, new TripInfoComponent().getElement());
+const tripInfo = document.querySelector(`.trip-main`);
+render(tripInfo, new TripInfo().getElement());
 
 const tripControl = document.querySelector(`.trip-controls`);
 render(tripControl, new MainMenuComponent(menuPoints).getElement());
