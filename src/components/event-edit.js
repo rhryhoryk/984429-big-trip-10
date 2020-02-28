@@ -181,12 +181,12 @@ const createEditForm = () => {
 };
 
 
-export default class EditFormComponent extends AbstractComponent {
+export default class EventEdit extends AbstractComponent {
   getTemplate() {
     return createEditForm();
   }
 
-  setSubmitEditFormHandler(handler) {
+  onEditFormSubmit(handler) {
     this.getElement().querySelector(`.event__save-btn`).addEventListener(`click`, handler);
   }
 }

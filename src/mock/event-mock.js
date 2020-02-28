@@ -45,6 +45,6 @@ const generateEvent = () => {
   };
 };
 
-export const setEvents = (amount) => {
+export const setEventsFromData = (amount) => {
   return new Array(amount).fill(``).map(generateEvent);
 };

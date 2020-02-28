@@ -20,7 +20,7 @@ export const createElement = (template) => {
   return element.firstChild;
 };
 
-export const render = (parent, element, place = `beforeend`) => {
+export const renderElement = (parent, element, place = `beforeend`) => {
   switch (place) {
     case `afterbegin`:
       parent.prepend(element);

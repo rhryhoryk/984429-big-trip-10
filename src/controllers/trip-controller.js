@@ -1,18 +1,34 @@
-import EventComponent from '../components/event.js';
-import EventEditFormComponent from '../components/edit-form.js';
+import DayList from '../components/day-list.js';
+import Day from '../components/day.js';
+import EventList from '../components/event-list.js';
+import Event from '../components/event.js';
+import EventEdit from '../components/event-edit.js';
 
-import {render} from '../components/util.js';
+import {renderElement} from '../components/util.js';
+import {setEventsFromData} from '../mock/event-mock.js';
 
 
 export default class TripController {
-  constructor(event, container) {
+  constructor(container) {
     this._container = container;
+    this._events = setEventsFromData(5);
 
-    this._eventComponent = new EventComponent(event);
-    this._eventEditFormComponent = new EventEditFormComponent();
+    this._dayLIst = new DayList();
+    this._day = new Day();
+    this._eventList = new EventList();
   }
 
-  render() {
+  _renderEvent(eventData, container) {
+    const event = new Event(eventData);
+    const eventEditForm = new EventEdit();
+
+    const replaceEventToEdit = () => {
+      container.replaceChild(eventEditForm.getElement(), event.getElement());
+    };
+    const replaceEditToEvent = () => {
+      container.replaceChild(event.getElement(), eventEditForm.getElement());
+    };
+
     const onEscKeyDown = (evt) => {
       const isEcsDown = evt.key === `Ecs` || evt.key === `Escape`;
       if (isEcsDown) {
@@ -21,22 +37,22 @@ export default class TripController {
       }
     };
 
-    const replaceEventToEdit = () => {
-      this._container.replaceChild(this._eventEditFormComponent.getElement(), this._eventComponent.getElement());
-    };
-    const replaceEditToEvent = () => {
-      this._container.replaceChild(this._eventComponent.getElement(), this._eventEditFormComponent.getElement());
-    };
-
-    this._eventComponent.setEventRollupClickHandler(() => {
+    event.onRollUpClick(() => {
       replaceEventToEdit();
       document.addEventListener(`keydown`, onEscKeyDown);
     });
-
-    this._eventEditFormComponent.setSubmitEditFormHandler(() => {
+    eventEditForm.onEditFormSubmit(() => {
       replaceEditToEvent();
     });
 
-    render(this._container, this._eventComponent.getElement());
+    renderElement(container, event.getElement());
+  }
+
+  render() {
+    renderElement(this._container, this._dayLIst.getElement());
+    renderElement(this._dayLIst.getElement(), this._day.getElement());
+    renderElement(this._day.getElement(), this._eventList.getElement());
+    const eventList = document.querySelector(`.trip-events__list`);
+    this._events.forEach((event) => this._renderEvent(event, eventList));
   }
 }

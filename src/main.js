@@ -1,8 +1,7 @@
-import {setEvents} from './mock/event-mock.js';
 import {filterNames} from './mock/filter-mock.js';
 import {menuPoints} from './mock/main-menu-mock.js';
 
-import {render} from './components/util.js';
+import {renderElement} from './components/util.js';
 
 import Board from './components/board.js';
 import Sort from './components/sort.js';
@@ -13,16 +12,16 @@ import FilterComponent from './components/filters.js';
 import TripController from './controllers/trip-controller.js';
 
 const tripInfo = document.querySelector(`.trip-main`);
-render(tripInfo, new TripInfo().getElement(), `afterbegin`);
+renderElement(tripInfo, new TripInfo().getElement(), `afterbegin`);
 
 const tripControl = document.querySelector(`.trip-controls`);
-render(tripControl, new MainMenuComponent(menuPoints).getElement());
-render(tripControl, new FilterComponent(filterNames).getElement());
+renderElement(tripControl, new MainMenuComponent(menuPoints).getElement());
+renderElement(tripControl, new FilterComponent(filterNames).getElement());
 
 const bodyContainer = document.querySelector(`.page-body__page-main .page-body__container`);
-render(bodyContainer, new Board().getElement());
+renderElement(bodyContainer, new Board().getElement());
 
 const tripEventsSection = document.querySelector(`.trip-events`);
-render(tripEventsSection, new Sort().getElement());
-const events = setEvents(5);
-events.forEach((event) => new TripController(event, tripEventsSection).render());
+renderElement(tripEventsSection, new Sort().getElement());
+const tripController = new TripController(tripEventsSection);
+tripController.render();
