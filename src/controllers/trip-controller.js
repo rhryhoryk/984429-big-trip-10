@@ -2,46 +2,16 @@ import Sort, {SortType} from '../components/sort.js';
 import DayList from '../components/day-list.js';
 import Day from '../components/day.js';
 import EventList from '../components/event-list.js';
-import Event from '../components/event.js';
-import EventEdit from '../components/event-edit.js';
 import NoPoint from '../components/no-points.js';
 
 import {renderElement} from '../components/util.js';
 import {setEventsFromData} from '../mock/event-mock.js';
 
-const renderEvent = (eventData, container) => {
-  const event = new Event(eventData);
-  const eventEditForm = new EventEdit();
-
-  const replaceEditToEvent = () => {
-    container.replaceChild(event.getElement(), eventEditForm.getElement());
-  };
-  const replaceEventToEdit = () => {
-    container.replaceChild(eventEditForm.getElement(), event.getElement());
-  };
-
-  const onEscKeyDown = (evt) => {
-    const isEscapeKey = evt.key === `Ecs` || evt.key === `Escape`;
-
-    if (isEscapeKey) {
-      replaceEditToEvent();
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    }
-  };
-
-  event.onRollUpClick(() => {
-    replaceEventToEdit();
-    document.addEventListener(`keydown`, onEscKeyDown);
-  });
-  eventEditForm.onEditFormSubmit(() => {
-    replaceEditToEvent();
-  });
-
-  renderElement(container, event.getElement());
-};
+import PointController from './point-controller.js';
 
 const renderEventList = (container, events) => {
-  events.forEach((event) => renderEvent(event, container));
+  const pointController = new PointController(container);
+  events.forEach((event) => pointController.render(event));
 };
 
 export default class TripController {
