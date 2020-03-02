@@ -14,19 +14,19 @@ const descriptions = [`Lorem ipsum dolor sit amet, consectetur adipiscing elit.`
   `In rutrum ac purus sit amet tempus.`];
 const additions = [{
   add: `Add luggage`,
-  price: `10`
+  price: `30`
 }, {
   add: `Switch to comfort class`,
-  price: `150`
+  price: `100`
 }, {
   add: `Add meal`,
-  price: `2`
+  price: `15`
 }, {
-  add: `Some stuff`,
-  price: `50`
+  add: `Choose seats`,
+  price: `5`
 }, {
-  add: `Add rest`,
-  price: `20`
+  add: `Travel by train`,
+  price: `40`
 }];
 
 const date = util.generateRandomDate();

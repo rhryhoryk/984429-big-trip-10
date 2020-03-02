@@ -11,7 +11,7 @@ export default class PointController {
 
   render(eventData) {
     const event = new Event(eventData);
-    const eventEditForm = new EventEdit();
+    const eventEditForm = new EventEdit(eventData);
 
     const replaceEditToEvent = () => {
       this._container.replaceChild(event.getElement(), eventEditForm.getElement());
@@ -38,5 +38,6 @@ export default class PointController {
     });
 
     renderElement(this._container, event.getElement());
+    // console.log(Array.from(eventEditForm._event.description).join(` `))
   }
 }
