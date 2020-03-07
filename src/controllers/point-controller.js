@@ -5,8 +5,9 @@ import {renderElement} from '../components/util.js';
 
 
 export default class PointController {
-  constructor(container) {
+  constructor(container, onDataChange) {
     this._container = container;
+    this._onDataChange = onDataChange;
   }
 
   render(eventData) {
@@ -38,6 +39,11 @@ export default class PointController {
     });
 
     renderElement(this._container, event.getElement());
-    // console.log(Array.from(eventEditForm._event.description).join(` `))
+
+    eventEditForm.onFavoriteBtnClick(() => {
+      this._onDataChange(this, eventData, Object.assign({}, eventData, {
+        isFavorite: !eventData.isFavorite,
+      }));
+    });
   }
 }

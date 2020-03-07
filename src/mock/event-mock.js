@@ -42,6 +42,7 @@ const generateEvent = () => {
     endTime: `${date.getHours()}:${date.getMinutes()}`,
     price: util.generateRandomNumber(100, 1000),
     addition: new Set(util.createSet(additions)),
+    isFavorite: false,
   };
 };
 
