@@ -1,22 +1,28 @@
-import {setEvents} from './mock/event-mock.js';
 import {filterNames} from './mock/filter-mock.js';
 import {menuPoints} from './mock/main-menu-mock.js';
 
-import {render} from './components/util.js';
+import {renderElement} from './components/util.js';
 
-import TripInfoComponent from './components/trip-info.js';
+import Board from './components/board.js';
+// import Sort from './components/sort.js';
+import TripInfo from './components/trip-info.js';
+// import NoPoint from './components/no-points.js';
 import MainMenuComponent from './components/main-menu.js';
 import FilterComponent from './components/filters.js';
 import TripController from './controllers/trip-controller.js';
 
-const tripInfo = document.querySelector(`.trip-info`);
-render(tripInfo, new TripInfoComponent().getElement());
+const tripInfo = document.querySelector(`.trip-main`);
+renderElement(tripInfo, new TripInfo().getElement(), `afterbegin`);
 
 const tripControl = document.querySelector(`.trip-controls`);
-render(tripControl, new MainMenuComponent(menuPoints).getElement());
-render(tripControl, new FilterComponent(filterNames).getElement());
+renderElement(tripControl, new MainMenuComponent(menuPoints).getElement());
+renderElement(tripControl, new FilterComponent(filterNames).getElement());
+
+// --------------------------------------------------------------------------------------------------------
+
+const bodyContainer = document.querySelector(`.page-body__page-main .page-body__container`);
+renderElement(bodyContainer, new Board().getElement());
 
 const tripEventsSection = document.querySelector(`.trip-events`);
-
-const events = setEvents(5);
-events.forEach((event) => new TripController(event, tripEventsSection).render());
+const tripController = new TripController(tripEventsSection);
+tripController.render();

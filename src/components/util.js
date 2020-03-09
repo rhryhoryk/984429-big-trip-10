@@ -1,11 +1,9 @@
 export const generateRandomNumber = (min, max) => {
   return min + Math.floor(Math.random() * max);
-  // return number;
 };
 
 export const getRandomItem = (arr) => {
   return arr[generateRandomNumber(0, arr.length)];
-  // return item;
 };
 
 export const createSet = (array) => {
@@ -14,7 +12,6 @@ export const createSet = (array) => {
 
 export const generateRandomDate = () => {
   return new Date();
-  // return date;
 };
 
 export const createElement = (template) => {
@@ -23,6 +20,25 @@ export const createElement = (template) => {
   return element.firstChild;
 };
 
-export const render = (parent, element) => {
-  parent.append(element);
+export const renderElement = (parent, element, place = `beforeend`) => {
+  switch (place) {
+    case `afterbegin`:
+      parent.prepend(element);
+      break;
+    case `beforeend`:
+      parent.append(element);
+      break;
+  }
+};
+
+export const replace = (newComponent, oldComponent) => {
+  const parentElement = oldComponent.getElement().parentElement;
+  const newElement = newComponent.getElement();
+  const oldElement = oldComponent.getElement();
+
+  const isExistElements = !!(parentElement && newElement && oldElement);
+
+  if (isExistElements && parentElement.contains(oldElement)) {
+    parentElement.replaceChild(newElement, oldElement);
+  }
 };
