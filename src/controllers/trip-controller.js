@@ -9,9 +9,12 @@ import {setEventsFromData} from '../mock/event-mock.js';
 
 import PointController from './point-controller.js';
 
-const renderEventList = (container, events) => {
-  const pointController = new PointController(container);
-  events.forEach((event) => pointController.render(event));
+const renderEventList = (container, events, onDataChange, onViewChange) => {
+  return events.map((event) => {
+    const pointController = new PointController(container, onDataChange, onViewChange);
+    pointController.render(event);
+    return pointController;
+  });
 };
 
 export default class TripController {
@@ -24,6 +27,8 @@ export default class TripController {
     this._eventList = new EventList();
     this._sort = new Sort();
     this._noPoint = new NoPoint();
+
+    this._eventsControllers = [];
   }
 
   render() {
@@ -34,11 +39,13 @@ export default class TripController {
 
     renderElement(this._container, this._sort.getElement());
     renderElement(this._container, this._dayList.getElement());
+
     renderElement(this._dayList.getElement(), this._day.getElement());
 
     const eventList = this._eventList.getElement();
     renderElement(this._day.getElement(), eventList);
-    renderEventList(eventList, this._events);
+
+    this._eventsControllers = renderEventList(eventList, this._events, this._onDataChange, this._onViewChange);
 
     this._sort.onSortChange((type) => {
       let sortedList = [];
@@ -70,5 +77,9 @@ export default class TripController {
     this._events = [].concat(this._events.slice(0, index), newData, this._events.slice(index + 1));
 
     pointController.render(this._events[index]);
+  }
+
+  _onViewChange() {
+    this._eventsControllers.forEach((controller) => controller.setDefaultView());
   }
 }
