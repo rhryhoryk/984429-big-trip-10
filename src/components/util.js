@@ -1,3 +1,13 @@
+import moment from 'moment';
+
+export const formatDate = (date) => {
+  return moment(date).format(`l`);
+};
+
+export const formatTime = (date) => {
+  return moment(date).format(`LTS`);
+};
+
 export const generateRandomNumber = (min, max) => {
   return min + Math.floor(Math.random() * max);
 };

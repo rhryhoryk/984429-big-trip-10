@@ -2,6 +2,7 @@ import AbstractSmartComponent from './abstract-smart-component.js';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import 'flatpickr/dist/themes/material_blue.css';
+import {formatTime, formatDate} from './util.js';
 
 const createOffer = (event) => {
   const offers = [`Add luggage`, `Switch to comfort class`, `Add meal`, `Choose seats`, `Travel by train`];
@@ -80,6 +81,10 @@ const isFavorite = (event) => {
 
 const createEditForm = (event) => {
   const description = Array.from(event.description).join(` `);
+
+  const date = formatDate(event.date);
+  const time = formatTime(event.date);
+
 
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
@@ -169,7 +174,7 @@ const createEditForm = (event) => {
           <label class="visually-hidden" for="event-start-time-1">
             From
           </label>
-          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${event.startTime}">
+          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${time}${date}">
           &mdash;
           <label class="visually-hidden" for="event-end-time-1">
             To
