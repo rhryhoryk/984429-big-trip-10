@@ -1,4 +1,7 @@
 import AbstractSmartComponent from './abstract-smart-component.js';
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
+import 'flatpickr/dist/themes/material_blue.css';
 
 const createOffer = (event) => {
   const offers = [`Add luggage`, `Switch to comfort class`, `Add meal`, `Choose seats`, `Travel by train`];
@@ -231,6 +234,8 @@ export default class EventEdit extends AbstractSmartComponent {
   constructor(event) {
     super();
     this._event = event;
+    this._flatpickr = null;
+    this._applyFlatpickr();
     this._subscribeOnEvents();
   }
 
@@ -262,6 +267,20 @@ export default class EventEdit extends AbstractSmartComponent {
       placeholder.innerHTML = evt.target.value;
 
       this.rerender();
+    });
+  }
+
+  _applyFlatpickr() {
+    if (this._flatpickr) {
+      this._flatpickr.destroy();
+      this._flatpickr = null;
+    }
+
+    const dateInput = this.getElement().querySelector(`.event__input--time`);
+    this._flatpickr = flatpickr(dateInput, {
+      altInput: true,
+      allowInput: true,
+      defaultDate: this._event.date
     });
   }
 }
