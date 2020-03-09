@@ -1,4 +1,8 @@
 import AbstractSmartComponent from './abstract-smart-component.js';
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
+import 'flatpickr/dist/themes/material_blue.css';
+import {formatTime, formatDate} from './util.js';
 
 const createOffer = (event) => {
   const offers = [`Add luggage`, `Switch to comfort class`, `Add meal`, `Choose seats`, `Travel by train`];
@@ -77,6 +81,10 @@ const isFavorite = (event) => {
 
 const createEditForm = (event) => {
   const description = Array.from(event.description).join(` `);
+
+  const date = formatDate(event.date);
+  const time = formatTime(event.date);
+
 
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
@@ -166,7 +174,7 @@ const createEditForm = (event) => {
           <label class="visually-hidden" for="event-start-time-1">
             From
           </label>
-          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${event.startTime}">
+          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${time}${date}">
           &mdash;
           <label class="visually-hidden" for="event-end-time-1">
             To
@@ -231,6 +239,8 @@ export default class EventEdit extends AbstractSmartComponent {
   constructor(event) {
     super();
     this._event = event;
+    this._flatpickr = null;
+    this._applyFlatpickr();
     this._subscribeOnEvents();
   }
 
@@ -262,6 +272,20 @@ export default class EventEdit extends AbstractSmartComponent {
       placeholder.innerHTML = evt.target.value;
 
       this.rerender();
+    });
+  }
+
+  _applyFlatpickr() {
+    if (this._flatpickr) {
+      this._flatpickr.destroy();
+      this._flatpickr = null;
+    }
+
+    const dateInput = this.getElement().querySelector(`.event__input--time`);
+    this._flatpickr = flatpickr(dateInput, {
+      altInput: true,
+      allowInput: true,
+      defaultDate: this._event.date
     });
   }
 }
